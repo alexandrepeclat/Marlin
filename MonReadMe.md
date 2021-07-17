@@ -1,5 +1,5 @@
 //Fichier compilé dans Marlin-bugfix-2.0.x\.pio\build\LPC1769\firmware.bin
-//définit dans platformio.ini : default_envs = LPC1768
+//définit dans platformio.ini : default_envs = LPC1768 //LPC1769 en fait pour la skr 1.4 turbo
 //à placer sur la carte sd
 //si imprimante connectée via usb, le fichier est automatiquement placé sur la sd onboard si on clique "Upload"
 

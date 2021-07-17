@@ -414,7 +414,7 @@
  *   998 : Dummy Table that ALWAYS reads 25°C or the temperature defined below.
  *   999 : Dummy Table that ALWAYS reads 100°C or the temperature defined below.
  */
-#define TEMP_SENSOR_0 1
+#define TEMP_SENSOR_0 5 //ALEX HEMERA (défaut 1 avec sensor de base, 5 pour Hemera https://e3d-online.dozuki.com/Guide/Hemera+Ender+3+firmware+modifications/115)
 #define TEMP_SENSOR_1 0
 #define TEMP_SENSOR_2 0
 #define TEMP_SENSOR_3 0
@@ -464,7 +464,7 @@
 // Above this temperature the heater will be switched off.
 // This can protect components from overheating, but NOT from shorts and failures.
 // (Use MINTEMP for thermistor short/failure protection.)
-#define HEATER_0_MAXTEMP 275
+#define HEATER_0_MAXTEMP 275 //ALEX (à voir si nécessaire avec Hemera on peut monter à 300 https://e3d-online.dozuki.com/Guide/Hemera+Ender+3+firmware+modifications/115)
 #define HEATER_1_MAXTEMP 275
 #define HEATER_2_MAXTEMP 275
 #define HEATER_3_MAXTEMP 275
@@ -499,9 +499,9 @@
     #define DEFAULT_Ki_LIST {   1.54,   1.54 }
     #define DEFAULT_Kd_LIST {  76.55,  76.55 }
   #else
-    #define DEFAULT_Kp  21.73
-    #define DEFAULT_Ki   1.54
-    #define DEFAULT_Kd  76.55
+    #define DEFAULT_Kp  24.63 //ALEX HEMERA autotuning step 26 : https://e3d-online.dozuki.com/Guide/Hemera+Ender+3+firmware+modifications/115
+    #define DEFAULT_Ki   1.94 //ALEX HEMERA : modifié via M303 C5 [E0] S200
+    #define DEFAULT_Kd  78.22 //Défaut : 21.73 1.54 76.55
   #endif
 #endif // PIDTEMP
 
@@ -742,7 +742,7 @@
  * Override with M92
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 150 } //ALEX (150 pour alu extruder / 93 avec extrudeur par défaut)
+#define DEFAULT_AXIS_STEPS_PER_UNIT   { 80, 80, 400, 409 } //ALEX HEMERA (150 pour alu extruder / 93 avec extrudeur par défaut / 409 Hemera)
 
 /**
  * Default Max Feed Rate (mm/s)
@@ -998,17 +998,17 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -40, 2.5, -2.22 } //ALEX BLTOUCH (hemera support plate https://www.thingiverse.com/thing:4065625)
+#define NOZZLE_TO_PROBE_OFFSET { -40, 5, -1.8 } //ALEX BLTOUCH (hemera support plate https://www.thingiverse.com/thing:4065625)
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
-#define PROBING_MARGIN 10
+#define PROBING_MARGIN 15 //ALEX BLTOUCH (défaut 10, réduit pour éviter de taper l'arrière de Y)
 
 // X and Y axis travel speed (mm/min) between probes
-#define XY_PROBE_SPEED (133*60)
+#define XY_PROBE_SPEED (200*60) //ALEX BLTOUCH (défaut 133)
 
 // Feedrate (mm/min) for the first approach when double-probing (MULTIPLE_PROBING == 2)
-#define Z_PROBE_SPEED_FAST (4*60)
+#define Z_PROBE_SPEED_FAST (20*60) //ALEX BLTOUCH (défaut 4)
 
 // Feedrate (mm/min) for the "accurate" probe of each point
 #define Z_PROBE_SPEED_SLOW (Z_PROBE_SPEED_FAST / 2)
@@ -1170,11 +1170,11 @@
 
 // The size of the print bed
 #define X_BED_SIZE 235
-#define Y_BED_SIZE 235
+#define Y_BED_SIZE 215 //ALEX HEMERA (défaut 235 - perdu 2cm, voir Y_MIN_POS)
 
 // Travel limits (mm) after homing, corresponding to endstop positions.
-#define X_MIN_POS 0
-#define Y_MIN_POS 0
+#define X_MIN_POS 0 //ALEX HEMERA (à voir si le nozzle est pas au coin du bed à 000)
+#define Y_MIN_POS -20 //ALEX HEMERA (défaut 0)
 #define Z_MIN_POS 0
 #define X_MAX_POS X_BED_SIZE
 #define Y_MAX_POS Y_BED_SIZE
@@ -1383,7 +1383,7 @@
 #if EITHER(AUTO_BED_LEVELING_LINEAR, AUTO_BED_LEVELING_BILINEAR)
 
   // Set the number of grid points per dimension.
-  #define GRID_MAX_POINTS_X 5
+  #define GRID_MAX_POINTS_X 3 //ALEX BLTOUCH (défaut 5)
   #define GRID_MAX_POINTS_Y GRID_MAX_POINTS_X
 
   // Probe along the Y axis, advancing X after each column
@@ -1520,7 +1520,7 @@
 #endif
 
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_MM_M { (30*60), (30*60), (20*60) } //ALEX BLTOUCH (défaut { (20*60), (20*60), (4*60) } diviseur augmenté pour second bump Z via conf_adv HOMING_BUMP_DIVISOR)
+#define HOMING_FEEDRATE_MM_M { (40*60), (40*60), (30*60) } //ALEX BLTOUCH (défaut { (20*60), (20*60), (4*60) } diviseur augmenté pour second bump Z via conf_adv HOMING_BUMP_DIVISOR)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
