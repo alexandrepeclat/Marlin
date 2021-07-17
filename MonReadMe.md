@@ -6,11 +6,12 @@
 //TODO : octoprint buffers ? http://lokspace.eu/bad-print-quality-with-usb-or-octoprint-the-solution-is-here/
 //TODO : Nozzle park tool option ? 
 //TODO : Fade height (activée dans fw mais pas sur printer)
-
+//TODO : a voir #define SDCARD_CONNECTION LCD ou ONBOARD (selon doc TFT) 
 
 /////////////////////////
 //BLTouch
 //Tuto marlin : https://all3dp.com/2/how-to-set-up-marlin-for-auto-bed-leveling/
+//Tuto abl TeachingTech : https://www.youtube.com/watch?v=BV11-VOQjMc&t=134s 
 //Commandes test manuel : http://www.geeetech.com/forum/viewtopic.php?f=27&t=18371
 
 M851 ; Read offsets
@@ -36,3 +37,9 @@ M502 ; Factory reset
 
 
 M997 ; Firmware update
+
+
+/////////////////////
+//TFT
+//Firmware et doc de base : https://github.com/bigtreetech/BIGTREETECH-TouchScreenFirmware/tree/master
+//

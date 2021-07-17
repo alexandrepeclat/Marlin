@@ -749,7 +749,7 @@
  * Override with M203
  *                                      X, Y, Z, E0 [, E1[, E2...]]
  */
-#define DEFAULT_MAX_FEEDRATE          { 500, 500, 5, 25 }
+#define DEFAULT_MAX_FEEDRATE          { 500, 500, 20, 25 } //ALEX BLTOUCH (z à 5 par défaut, augmenté pour accélérer abl)
 
 //#define LIMITED_MAX_FR_EDITING        // Limit edit via M203 or LCD to DEFAULT_MAX_FEEDRATE * 2
 #if ENABLED(LIMITED_MAX_FR_EDITING)
@@ -998,7 +998,7 @@
  *     |    [-]    |
  *     O-- FRONT --+
  */
-#define NOZZLE_TO_PROBE_OFFSET { -40, 5, -1.8 } //ALEX BLTOUCH (hemera support plate https://www.thingiverse.com/thing:4065625)
+#define NOZZLE_TO_PROBE_OFFSET { -40, 5, -1.43 } //ALEX BLTOUCH (hemera support plate https://www.thingiverse.com/thing:4065625)
 
 // Most probes should stay away from the edges of the bed, but
 // with NOZZLE_AS_PROBE this can be negative for a wider probing area.
@@ -1066,8 +1066,8 @@
  * Example: `M851 Z-5` with a CLEARANCE of 4  =>  9mm from bed to nozzle.
  *     But: `M851 Z+1` with a CLEARANCE of 2  =>  2mm from bed to nozzle.
  */
-#define Z_CLEARANCE_DEPLOY_PROBE   10 // Z Clearance for Deploy/Stow
-#define Z_CLEARANCE_BETWEEN_PROBES  5 // Z Clearance between probe points
+#define Z_CLEARANCE_DEPLOY_PROBE   5 // Z Clearance for Deploy/Stow //ALEX BLTOUCH (selon tuto TeachingTech c'est ok)
+#define Z_CLEARANCE_BETWEEN_PROBES  4 // Z Clearance between probe points //ALEX BLTOUCH (selon tuto TeachingTech c'est ok)
 #define Z_CLEARANCE_MULTI_PROBE     5 // Z Clearance between multiple probes
 //#define Z_AFTER_PROBING           5 // Z position after probing is done
 
@@ -1078,7 +1078,7 @@
 #define Z_PROBE_OFFSET_RANGE_MAX 20
 
 // Enable the M48 repeatability test to test probe accuracy
-//#define Z_MIN_PROBE_REPEATABILITY_TEST
+#define Z_MIN_PROBE_REPEATABILITY_TEST //ALEX TFT et BLTOUCH 
 
 // Before deploy/stow pause for user confirmation
 //#define PAUSE_BEFORE_DEPLOY_STOW
@@ -1490,7 +1490,7 @@
  * Commands to execute at the end of G29 probing.
  * Useful to retract or move the Z probe out of the way.
  */
-#define Z_PROBE_END_SCRIPT "G1 Z15 F12000\nG1 X5 Y5 F6000" //ALEX BLTOUCH (original : G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10)
+#define Z_PROBE_END_SCRIPT "G1 Z10 F12000\nG1 X5 Y5 Z20 F6000" //ALEX BLTOUCH (original : G1 Z10 F12000\nG1 X15 Y330\nG1 Z0.5\nG1 Z10)
 
 // @section homing
 
@@ -1520,7 +1520,7 @@
 #endif
 
 // Homing speeds (mm/min)
-#define HOMING_FEEDRATE_MM_M { (40*60), (40*60), (30*60) } //ALEX BLTOUCH (défaut { (20*60), (20*60), (4*60) } diviseur augmenté pour second bump Z via conf_adv HOMING_BUMP_DIVISOR)
+#define HOMING_FEEDRATE_MM_M { (50*60), (50*60), (30*60) } //ALEX BLTOUCH (défaut { (20*60), (20*60), (4*60) } diviseur augmenté pour second bump Z via conf_adv HOMING_BUMP_DIVISOR)
 
 // Validate that endstops are triggered on homing moves
 #define VALIDATE_HOMING_ENDSTOPS
